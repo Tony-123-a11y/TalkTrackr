@@ -39,6 +39,10 @@ io.on('connection',(socket)=>{
        const socketId= emailToSocketMapping.get(from)
        socket.to(socketId).emit('call-accepted',{ans})
     })
+
+    socket.on('send-candidate',(candidate)=>{
+       socket.broadcast.emit('receive-candidate',candidate)
+    })
 })
 app.get('/',(req,res)=>{
     res.json({msg:'welcome'})
