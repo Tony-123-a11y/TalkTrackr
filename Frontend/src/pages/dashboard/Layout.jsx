@@ -1,7 +1,7 @@
-import React from 'react'
-import  Sidebar  from '../../components/UI/SideBar'
-import Home from '../Home'
+
+import  Sidebar  from '../../components/UI/Sidebar'
 import { Outlet } from 'react-router-dom'
+
 
 const Layout = () => {
 
