@@ -73,9 +73,9 @@ console.log(remoteStreamRef.current?.srcObject)
 
 
   return (
-    <div className='h-full p-10 flex flex-col gap-10'>
-    <div className='flex items-center justify-center gap-10 h-full overflow-hidden max-md:block'>
-      <div className=" rounded-4xl h-full inset-shadow-sm w-1/2 overflow-hidden max-md:w-full">
+    <div className='h-full p-10 flex flex-col gap-10 max-sm:p-2'>
+    <div className='flex items-center justify-center gap-10 h-full overflow-hidden max-sm:flex-col max-sm:gap-2'>
+      <div className=" rounded-4xl h-full inset-shadow-sm w-1/2 overflow-hidden max-sm:w-full">
    <video
   ref={(video) => {
     if (video && myStream) {
@@ -88,7 +88,7 @@ console.log(remoteStreamRef.current?.srcObject)
 />
 
       </div>
-      <div className="bg-gray-100  rounded-4xl h-full inset-shadow-sm w-1/2 overflow-hidden relative max-md:w-full">
+      <div className="bg-gray-100  rounded-4xl h-full inset-shadow-sm w-1/2 overflow-hidden relative max-sm:w-full">
       <video
   ref={remoteStreamRef}
   autoPlay
