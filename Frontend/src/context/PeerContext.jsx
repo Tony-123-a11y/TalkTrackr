@@ -7,29 +7,30 @@ export const PeerContext= createContext()
 export const PeerProvider=({children})=>{
     const [remoteStream, setRemoteStream] = useState(null);
     const [myStream, setMyStream] = useState(null);
+    const [iceServerURLs, setIceServerURLs] = useState(null);
     const remoteStreamRef= useRef(null)
-   const peer= useMemo(()=>{
-    return new RTCPeerConnection({
-        iceServers:[
-            {
-                urls:[ 
-                    "stun:stun.l.google.com:19302",
-                    "stun:stun1.l.google.com:19302",
-                 
-                ]
-            },
-            {
-      urls: [
-        "turn:openrelay.metered.ca:80",
-        "turn:openrelay.metered.ca:443",
-        "turn:openrelay.metered.ca:443?transport=tcp"
-      ],
-      username: "openrelayproject",
-      credential: "openrelayproject"
+    console.log(iceServerURLs)
+    async function getIceServers(){
+       try {
+         const res= await fetch('http://localhost:8000/ice-servers')
+         const data= await res.json()
+         console.log(data)
+        setIceServerURLs(data.token.iceServers)
+       } catch (error) {
+        console.log(error)
+       }
     }
-        ]
+    useEffect(()=>{
+          getIceServers()
+    },[])
+   const peer= useMemo(()=>{
+    if(iceServerURLs){
+        console.log('helloURLs')
+    return new RTCPeerConnection({
+        iceServers:iceServerURLs,
      })
-   },[])
+    }
+   },[iceServerURLs])
    
    const createOffer= async()=>{
      const offer= await peer.createOffer()
@@ -72,9 +73,11 @@ const createAns = async (receivedOffer,localStream) => {
    },[])
 
    useEffect(() => {
-     peer.addEventListener('track',handleTrackEvent)
+   if(peer){
+      peer.addEventListener('track',handleTrackEvent)
+   }
      return () => {
-       peer.removeEventListener('track',handleTrackEvent)
+       peer?.removeEventListener('track',handleTrackEvent)
      }
    }, [peer,handleTrackEvent])
    

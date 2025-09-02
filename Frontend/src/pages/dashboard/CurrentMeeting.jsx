@@ -10,7 +10,7 @@ import { useState } from 'react'
 const CurrentMeeting = () => {
   const {socket}=useSocket()
   const {peer,createOffer,createAns,createRemoteAnswer,sendStream,remoteStream,myStream,remoteStreamRef}=usePeer()
- console.log(remoteStream)
+ console.log(peer)
   const [remoteEmailId, setRemoteEmailId] = useState(null);
   const [fromRemoteEmailId, setFromRemoteEmailId] = useState(null);
 
@@ -35,7 +35,7 @@ console.log(remoteStreamRef.current?.srcObject)
   },[socket])
 
   const handleNegotiation =useCallback(()=>{
-   const localOffer= peer.localDescription;
+   const localOffer= peer?.localDescription;
    socket.emit('call-user',{emailId:fromRemoteEmailId, offer:localOffer})
   },[peer])
 
@@ -44,18 +44,21 @@ console.log(remoteStreamRef.current?.srcObject)
      socket.emit('send-candidate',{candidate:e.candidate})
   },[])
   useEffect(()=>{
-    peer.addEventListener('icecandidate',handleIceCanditate)
-   peer.addEventListener('negotiationneeded',handleNegotiation)
+    if(peer){
+      peer.addEventListener('icecandidate',handleIceCanditate)
+         peer.addEventListener('negotiationneeded',handleNegotiation)
+    }
+
    return ()=>{
-    peer.removeEventListener('negotiationneeded',handleNegotiation)
-    peer.removeEventListener('icecandidate',handleIceCanditate)
+    peer?.removeEventListener('negotiationneeded',handleNegotiation)
+    peer?.removeEventListener('icecandidate',handleIceCanditate)
 
    }
   }, [handleNegotiation,peer])
 
   const handleReceivedCandidate=useCallback(async({candidate})=>{
-      await peer.addIceCandidate(candidate)
-  })
+      await peer?.addIceCandidate(candidate)
+  },[peer])
   useEffect(()=>{
     socket.on('user-joined',handleNewUserJoined)
     socket.on('incoming-call',handleIncomingCall)

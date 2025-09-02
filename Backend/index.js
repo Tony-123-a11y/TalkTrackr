@@ -2,8 +2,8 @@ import express from 'express'
 import dotenv from 'dotenv'
 import http from 'http'
 import { Server } from 'socket.io'
-
-
+import twilio from 'twilio'
+import cors from 'cors'
 dotenv.config()
 
 const port=process.env.PORT 
@@ -13,6 +13,8 @@ const io= new Server(server,{
   cors:true
 })
 app.use(express.json())
+app.use(cors())
+
 //Socket configuration
 const emailToSocketMapping= new Map()
 const socketToEmailMapping= new Map()
@@ -46,6 +48,22 @@ io.on('connection',(socket)=>{
 })
 app.get('/',(req,res)=>{
     res.json({msg:'welcome'})
+})
+
+//twilio configuration
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = twilio(accountSid, authToken);
+
+
+app.get('/ice-servers',async(req,res)=>{
+  try {
+    const token = await client.tokens.create();
+     res.json({msg:'token fetched successfully',token})
+  console.log(token.accountSid);
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 server.listen(port,()=>{
