@@ -1,32 +1,59 @@
 import { Mic, MicOff, Video, VideoOff, MonitorUp, PhoneOff } from "lucide-react"
 import { useState } from "react"
+import { usePeer } from "../../hooks/Peer"
 
-export default function MeetingBottomNav({myStream,sendStream}) {
-  const [isMuted, setIsMuted] = useState(false)
-  const [isVideoOff, setIsVideoOff] = useState(false)
+export default function MeetingBottomNav({handleLocalVideo}) {
+  const [isMuted, setIsMuted] = useState(true)
+  const [isVideoOff, setIsVideoOff] = useState(true)
+  const {myStream,sendStream,stopStream,enableAudio,stopAudio}= usePeer()
 
   return (
     <div className="  w-full bg-gray-200 py-3 shadow-sm rounded-4xl">
       <div className="container flex items-center justify-center gap-6">
         
         {/* Mic Toggle */}
-        <button
-          onClick={() => setIsMuted(!isMuted)}
-          className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer"
-        >
-          {isMuted ? <MicOff className="w-6 h-6 text-red-500" /> : <Mic className="w-6 h-6" />}
-        </button>
+      
+          {isMuted ?
+          <button 
+           className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer"
+          onClick={()=>{
+            setIsMuted(false)
+            enableAudio()
+          }}>
+          <MicOff className="w-6 h-6 text-red-500" />
+          </button>
+           :
+           <button
+            className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer"
+           onClick={()=>{
+               setIsMuted(true)
+               stopAudio()
+           }}>
+  <Mic className="w-6 h-6" />
+           </button>
+           
+         }
+       
+
+
 
         {/* Video Toggle */}
-        <button
-          onClick={() =>{ 
-            setIsVideoOff(!isVideoOff)
-            sendStream(myStream)         
+        
+          {isVideoOff ?
+          <button onClick={() =>{ 
+            handleLocalVideo(false)
+            setIsVideoOff(false)
+            sendStream()         
           }}
-          className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer"
-        >
-          {isVideoOff ? <VideoOff className="w-6 h-6 text-red-500" /> : <Video className="w-6 h-6" />}
-        </button>
+          className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer"><VideoOff className="w-6 h-6 text-red-500" /></button>
+        :
+        <button onClick={()=>{
+          handleLocalVideo(true)
+          setIsVideoOff(true)
+              stopStream()
+        }} className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer"> <Video className="w-6 h-6" /></button>
+       }
+      
 
         {/* Screen Share */}
         <button className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer">
