@@ -1,11 +1,12 @@
-import { Mic, MicOff, Video, VideoOff, MonitorUp, PhoneOff } from "lucide-react"
+import { Mic, MicOff, Video, VideoOff, MonitorUp, Phone, MonitorOff } from "lucide-react"
 import { useState } from "react"
 import { usePeer } from "../../hooks/Peer"
 
-export default function MeetingBottomNav({handleLocalVideo}) {
+export default function MeetingBottomNav({handleLocalVideo,leaveMeeting}) {
   const [isMuted, setIsMuted] = useState(true)
   const [isVideoOff, setIsVideoOff] = useState(true)
-  const {myStream,sendStream,stopStream,enableAudio,stopAudio}= usePeer()
+  const [screenOff, setScreenOff] = useState(true);
+  const {sendStream,stopStream,enableAudio,stopAudio,enableScreenShare,stopScreenShare}= usePeer()
 
   return (
     <div className="  w-full bg-gray-200 py-3 shadow-sm rounded-4xl">
@@ -56,13 +57,25 @@ export default function MeetingBottomNav({handleLocalVideo}) {
       
 
         {/* Screen Share */}
-        <button className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer">
+        {
+          screenOff ?   <button onClick={()=>{
+            setScreenOff(false)
+            enableScreenShare()
+            }} className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer">
+          <MonitorOff className="w-6 h-6" />
+        </button>
+        :
+        <button onClick={()=>{
+          stopScreenShare()
+          setScreenOff(true)
+          }} className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer">
           <MonitorUp className="w-6 h-6" />
         </button>
+}
 
         {/* Leave Call */}
-        <button className="p-3 rounded-full bg-red-600 hover:bg-red-700 text-white cursor-pointer">
-          <PhoneOff className="w-6 h-6" />
+        <button onClick={leaveMeeting} className="p-3 rounded-full bg-red-600 hover:bg-red-700 text-white cursor-pointer">
+          <Phone className="w-6 h-6" />
         </button>
       </div>
     </div>

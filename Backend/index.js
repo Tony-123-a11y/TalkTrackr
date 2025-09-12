@@ -45,6 +45,18 @@ io.on('connection',(socket)=>{
     socket.on('send-candidate',(candidate)=>{
        socket.broadcast.emit('receive-candidate',candidate)
     })
+
+    socket.on('leave-meeting',()=>{
+       socket.broadcast.emit('end-meeting')
+    })
+
+    socket.on('track-added',({type})=>{
+      socket.broadcast.emit('track-type',type)
+    })
+    
+    socket.on('track-removed',({stopTrackType})=>{
+       socket.broadcast.emit('track-type-removed',stopTrackType)
+    })
 })
 app.get('/',(req,res)=>{
     res.json({msg:'welcome'})
