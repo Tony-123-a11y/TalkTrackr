@@ -230,6 +230,8 @@ export const PeerProvider = ({ children }) => {
       videoTrack,
       setTrackType,
       remoteStreamRef,
+      audioTrack,
+      screenTracks,
       stopScreenShare,
       stopStream,
       setScreenTracks,

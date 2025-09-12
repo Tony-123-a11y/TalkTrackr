@@ -11,7 +11,7 @@ import { cn } from '../../lib/utils'
 const CurrentMeeting = () => {
   const navigate = useNavigate()
   const { socket } = useSocket()
-  const { peer, createOffer, createAns, createRemoteAnswer, myStream, handleStopTrackEvent, remoteStreamRef, setTrackType, videoTrack, remoteAudioRef, screenMedia, remoteScreenMedia, setScreenTracks } = usePeer()
+  const { peer, createOffer, createAns, createRemoteAnswer, myStream, handleStopTrackEvent, remoteStreamRef, setTrackType, videoTrack, remoteAudioRef, screenMedia, remoteScreenMedia, audioTrack,screenTracks } = usePeer()
   const [disableLocalVideo, setDisableLocalVideo] = useState(true);
   const [remoteEmailId, setRemoteEmailId] = useState(null);
   const [fromRemoteEmailId, setFromRemoteEmailId] = useState(null);
@@ -102,6 +102,8 @@ console.log(remoteScreenMedia)
 
   const leaveMeeting = useCallback(async () => {
     videoTrack?.stop();
+    audioTrack?.stop();
+    screenTracks.stop();
     if (peer) peer.close();
     socket.emit('leave-meeting');
     navigate('/profile')
