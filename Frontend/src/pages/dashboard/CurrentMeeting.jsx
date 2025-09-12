@@ -103,7 +103,7 @@ console.log(remoteScreenMedia)
   const leaveMeeting = useCallback(async () => {
     videoTrack?.stop();
     audioTrack?.stop();
-    screenTracks.stop();
+    screenTracks?.stop();
     if (peer) peer.close();
     socket.emit('leave-meeting');
     navigate('/profile')
