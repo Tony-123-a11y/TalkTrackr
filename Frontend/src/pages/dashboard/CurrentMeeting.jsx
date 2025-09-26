@@ -107,7 +107,6 @@ console.log(remoteScreenMedia)
     if (peer) peer.close();
     socket.emit('leave-meeting');
     navigate('/profile')
-
   }, [videoTrack, peer,socket])
 
   const handleEndMeeting = useCallback(async () => {

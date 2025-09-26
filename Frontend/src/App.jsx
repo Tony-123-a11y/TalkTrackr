@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Layout from './pages/dashboard/Layout'
@@ -9,15 +7,24 @@ import ProfileHome from './pages/dashboard/ProfileHome'
 import Recording from './pages/dashboard/Recording'
 import CurrentMeeting from './pages/dashboard/CurrentMeeting'
 import Messages from './pages/dashboard/Messages'
+import {useDispatch, useSelector} from 'react-redux'
+import { fetchUser } from './Redux/UserSlice'
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const {user}=useSelector((state)=>state.user)
+  const dispatch= useDispatch()
+  useEffect(() => {
+    if(!user){
+     dispatch(fetchUser())
+    }
+  }, [user])
+  
   return (
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<Home/>}></Route>
+  
       {/* Dashboard */}
       <Route
        path='/profile'

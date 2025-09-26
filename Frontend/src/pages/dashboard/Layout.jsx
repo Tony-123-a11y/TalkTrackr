@@ -1,5 +1,5 @@
 
-import  Sidebar  from '../../components/UI/Sidebar'
+import Sidebar from '../../components/UI/Sidebar'
 import { Outlet } from 'react-router-dom'
 
 
@@ -7,13 +7,13 @@ const Layout = () => {
 
   return (
     <div className='grid h-screen  grid-cols-12 p-8 max-sm:p-2'>
-     <div className="col-span-1 h-full max-sm:hidden">
-       <Sidebar/>
-     </div>
-      <div className='bg-gray-50 col-span-11 h-full rounded-4xl shadow-sm overflow-hidden max-sm:col-span-12'>
-<Outlet/> 
+      <div className="col-span-1 h-full max-sm:hidden">
+        <Sidebar />
       </div>
-      
+      <div className='bg-gray-50 col-span-11 h-full rounded-4xl shadow-sm overflow-hidden max-sm:col-span-12'>
+        <Outlet />
+      </div>
+
     </div>
   )
 }
