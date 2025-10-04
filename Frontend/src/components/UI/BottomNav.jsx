@@ -10,7 +10,7 @@ import { logout } from "../../Redux/UserSlice";
 import { motion } from "framer-motion";
 
 
-const BottomNav = ({setBottomNav}) => {
+const BottomNav = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const onLogout = async () => {

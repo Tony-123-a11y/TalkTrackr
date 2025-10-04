@@ -12,7 +12,7 @@ import MeetingNotFound from './MeetingNotFound'
 import { useSelector } from 'react-redux'
 
 const CurrentMeeting = () => {
-  const {user}=useSelector((state)=>state.user)
+  const { user } = useSelector((state) => state.user)
   const navigate = useNavigate()
   const { socket } = useSocket()
   const [meetingFound, setMeetingFound] = useState(true);
@@ -127,17 +127,17 @@ const CurrentMeeting = () => {
   }
   //After joining
   const handleJoinedRoom = useCallback((roomId) => {
-    alert(`room joined ${roomId}`)
+    // alert(`room joined ${roomId}`)
     navigate(`/profile/currentmeeting/${roomId}`)
   }, [navigate])
 
- 
+
 
   //Checking Meeting that it exists or not
   async function checkMeetingToJoin(roomCode) {
     try {
       setLoading(true)
-     await checkMeeting(roomCode)
+      await checkMeeting(roomCode)
       socket.emit('join-room', { emailId: user.emailId, roomId: roomCode })
       setLoading(false)
       setMeetingFound(true)
@@ -153,16 +153,16 @@ const CurrentMeeting = () => {
 
 
   return (
-    <div className='h-full p-10 flex flex-col gap-10 max-sm:p-2'>
+    <div className='h-full p-10 flex flex-col gap-10 max-sm:gap-5 max-lg:p-5 max-lg:pb-10 max-sm:p-2 max-sm:pb-20'>
 
       {
         loading ? <Loader /> :
           meetingFound ?
-            <div className="h-full flex flex-col  gap-10 items-center justify-center">
-              <div className={cn('grid grid-cols-2 items-center justify-center gap-10 flex-grow w-full   overflow-hidden max-sm:flex-col max-sm:gap-2', (screenMedia || remoteScreenMedia) && 'grid-cols-[1fr_2fr] ',
+            <div className="h-full flex flex-col  gap-10 max-sm:gap-5 items-center justify-center">
+              <div className={cn('grid grid-cols-2 items-center justify-center gap-10 flex-grow w-full max-lg:gap-6  overflow-hidden  max-sm:grid-cols-1 max-sm:gap-2', (screenMedia || remoteScreenMedia) && 'grid-cols-[1fr_2fr] ',
                 (remoteScreenMedia && screenMedia) && 'grid-cols-2')}>
                 {/* Local Stream Render */}
-                <div className="bg-gray-200 border-5 border-blue-800 rounded-4xl  h-full inset-shadow-sm overflow-hidden max-sm:w-full">
+                <div className="bg-gray-800 border-3 border-primary rounded-4xl  h-full inset-shadow-sm overflow-hidden max-sm:w-full">
                   <video
                     ref={(video) => {
                       if (video && myStream && !disableLocalVideo) {
@@ -177,7 +177,7 @@ const CurrentMeeting = () => {
                 </div>
 
                 {
-                  (screenMedia && <div className="bg-gray-200 border-5 border-blue-800 rounded-4xl h-full row-span-2 inset-shadow-sm  overflow-hidden max-sm:w-full">
+                  (screenMedia && <div className="bg-gray-800 border-3 border-primary  rounded-4xl h-full row-span-2 inset-shadow-sm  overflow-hidden max-sm:w-full">
                     <video
                       ref={(video) => {
                         if (video && screenMedia) {
@@ -193,7 +193,7 @@ const CurrentMeeting = () => {
 
                 }
                 {
-                  (remoteScreenMedia && <div className="bg-gray-200 border-5 border-blue-800 row-span-2 rounded-4xl h-full inset-shadow-sm  overflow-hidden max-sm:w-full">
+                  (remoteScreenMedia && <div className="bg-gray-800 border-3 border-primary  row-span-2 rounded-4xl h-full inset-shadow-sm  overflow-hidden max-sm:w-full">
                     <video
                       ref={(video) => {
                         if (video && remoteScreenMedia) {
@@ -211,7 +211,7 @@ const CurrentMeeting = () => {
 
                 {/* RemoteStream Render */}
 
-                <div className="bg-gray-200 border-5 border-blue-800 rounded-4xl h-full inset-shadow-sm  overflow-hidden relative max-sm:w-full">
+                <div className="bg-gray-800 border-3 border-primary  rounded-4xl h-full inset-shadow-sm  overflow-hidden relative max-sm:w-full">
                   <audio ref={remoteAudioRef} autoPlay className='hidden'></audio>
                   <video
                     ref={remoteStreamRef}

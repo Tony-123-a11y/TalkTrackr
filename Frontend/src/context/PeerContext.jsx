@@ -21,8 +21,8 @@ export const PeerProvider = ({ children }) => {
 
   async function getIceServers() {
     try {
-      //  const res= await fetch('https://talktrackr-2.onrender.com/ice-servers')
-      const res = await fetch('http://localhost:8000/ice-servers')
+       const res= await fetch('https://talktrackr-2.onrender.com/ice-servers')
+      // const res = await fetch('http://localhost:8000/ice-servers')
       const data = await res.json()
       console.log(data)
       setIceServerURLs(data.token.iceServers)

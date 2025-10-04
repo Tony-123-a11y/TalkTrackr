@@ -12,7 +12,7 @@ export default function ConcentricCircles({
 
 
   return (
-    <div className={`container   mx-auto w-full h-full p-6 max-sm:p-4  fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}>
+    <div className={`   mx-auto w-full h-full p-6 max-sm:p-4  fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}>
    <div className="absolute left-0 top-0 h-full w-full bg-black/30 z-10"/>
       <div className="relative bg-transparent h-full w-full mx-auto">
         {/* center wrapper */}
