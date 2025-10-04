@@ -22,7 +22,7 @@ const server= http.createServer(app)
 runSocket(io)
 app.use(express.json())
 app.use(cors({
-  origin:['http://localhost:5173'],
+  origin:['http://localhost:5173','https://talk-trackr-nc2n.vercel.app'],
   credentials:true
 }))
 connectToDB()

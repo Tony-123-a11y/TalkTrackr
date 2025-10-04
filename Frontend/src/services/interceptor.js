@@ -2,7 +2,7 @@ import axios from 'axios';
 import { store } from '../Redux/Store';
 import { logout } from '../Redux/UserSlice';
 // const apiUrl= 'http://localhost:8000/api'
-const apiUrl='https://talktrackr-2.onrender.com'
+const apiUrl='https://talktrackr-1.onrender.com'
 
 export const apiClient= axios.create({
     baseURL:apiUrl,
