@@ -1,9 +1,8 @@
 import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
-import {Link, useNavigate} from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import logo from '@/assets/logo.png'
 import { MdEmail, MdLock } from "react-icons/md"
-import { apiClient } from "../../services/interceptor"
 import { loginUser } from "../../services/apiService"
 import { toast } from "react-toastify"
 import Loader from "./Loader"
@@ -33,12 +32,12 @@ try {
    navigate('/profile')
    
 } catch (error) {
-     setLoading(false)
+     setLoading(false)  
      toast.error(error.response.data.msg)
 }
   }
   return (
-     <div className="bg-primary-background backdrop-blur-sm h-full shadow-xl p-8 rounded-r-4xl w-2/5 ">
+     <div className="bg-primary-background backdrop-blur-sm h-full shadow-xl p-8 max-sm:p-5 rounded-r-4xl max-sm:rounded-4xl w-2/5 max-md:w-1/2 max-sm:w-full">
           {/* Header */}
           <div className="text-center mb-6">
             <img src={logo} alt="" className="h-25 w-25 object-contain  mx-auto scale-110 " />

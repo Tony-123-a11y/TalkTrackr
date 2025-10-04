@@ -1,51 +1,66 @@
-import React, { useState } from "react";
-import { Video, Keyboard } from "lucide-react"; // icons
+import React, { useCallback, useState } from "react";
+import { Video, Keyboard, Phone } from "lucide-react"; // icons
 import Button from "../components/UI/Button";
-import Input from "../components/UI/Input";
 import ConcentricCircles from "../components/ConcentricCircles";
 import Navbar from "../components/UI/Navbar";
 import AuthForm from "./Auth/AuthForm";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [authForm, setAuthForm] = useState(false);
 const [whichForm, setWhichForm] = useState(null);
-
+const {isAuthenticated}= useSelector((state)=>state.user)
+const navigate= useNavigate()
   return (
     <>
     {
        authForm   && <AuthForm setAuthForm={setAuthForm} whichForm={whichForm} setWhichForm={setWhichForm}/>
     }
     <Navbar setAuthForm={setAuthForm} setWhichForm={setWhichForm}/>
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4 relative ">
-      <div className="text-center max-w-3xl">
+    <div className="min-h-screen selection:bg-primary flex flex-col items-center justify-center  px-4 relative ">
+      <div className="text-center max-sm:text-left max-w-3xl">
         {/* Heading */}
        <div className="relative z-50 ">
-         <h1 className="text-5xl  font-medium text-gray-100 mb-4 leading-15 capitalize max-sm:text-3xl">
-          Boost your productivity with AI powered meetings and notes 
+         <h1 className="text-5xl  font-semibold  text-gray-100 mb-4 leading-15 capitalize max-md:text-4xl max-md:leading-10 max-sm:text-3xl max-sm:leading-8">
+          Boost your productivity with AI powered calls and notes 
         </h1>
-        <p className="text-2xl text-gray-200 mb-8">
+        <p className="text-2xl text-gray-200 mb-8 max-md:text-xl">
           Connect, collaborate, and celebrate from <br className="max-sm:hidden" />
           anywhere with Google Meet
         </p> 
 
         {/* Buttons */}
-        <div className="flex items-center  justify-center gap-3 max-sm:flex-col">
+        <div className="flex items-center  justify-center gap-3">
         
-          <Button className={'py-5 shadow-xl text-white'} size={'lg'}>
+          <Button
+           onClick={()=>{
+            if(isAuthenticated){
+               navigate('/profile')
+            }
+            setAuthForm(true)
+          }
+        } 
+          className={'py-5 shadow-xl  text-white'} size={'lg'}>
             <Video  size={25}/>
-            New meeting
+            New Call
+          </Button>
+<span className="font-semibold max-sm:text-sm">OR</span>
+           <Button
+           onClick={()=>{
+            if(isAuthenticated){
+               navigate('/profile')
+            }
+            setAuthForm(true)
+          }
+        } 
+          className={'py-5 shadow-xl bg-black/30 backdrop-blur-sm hover:bg-black/20 text-white'} size={'lg'}>
+            <Phone  size={25}/>
+            Join Call
           </Button>
 
-          <div className="flex items-center  rounded-full relative">
-           
-            <Input
-              type="text"
-              placeholder="Enter a code or link"
-              variant={'outline'}
-              className={'bg-white border-none py-5 shadow-xl'}
-            />
-            <Button variant={'icon'} className={' hover:bg-white/10 rounded-full ml-1 hover:backdrop-blur-sm '}>Join</Button>
-          </div>
+
+          
         </div>
        </div>
 

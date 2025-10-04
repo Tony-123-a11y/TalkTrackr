@@ -10,3 +10,10 @@ export const registerUser= async(emailId,password,fullName)=>{
 export const logOutUser= async()=>{
         return await apiClient.post('/users/logout')
 }
+export const createNewMeeting= async(roomCode,host)=>{
+     return await apiClient.post('/meeting/createMeeting',{roomCode,host})
+}
+
+export const checkMeeting =async(roomCode)=>{
+    return await apiClient.get(`/meeting/checkMeeting/${roomCode}`)
+}

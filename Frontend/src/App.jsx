@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { fetchUser } from './Redux/UserSlice'
 
 
+
 function App() {
   const {user}=useSelector((state)=>state.user)
   const dispatch= useDispatch()
@@ -23,8 +24,7 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path='/' element={<Home/>}></Route>
-  
+      <Route path='/' element={<Home/>}/>
       {/* Dashboard */}
       <Route
        path='/profile'
@@ -33,7 +33,7 @@ function App() {
       </ProtectedRoute>}>
         <Route index  element={<ProfileHome/>}/>
         <Route path='recording' element={<Recording/>}/>
-        <Route path='currentmeeting' element={<CurrentMeeting/>}/>
+        <Route path='currentmeeting/:roomCode' element={<CurrentMeeting/>}/>
         <Route path='messages' element={<Messages/>}/>
       </Route>
     </Routes>

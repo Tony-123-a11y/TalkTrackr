@@ -1,22 +1,27 @@
-import React from 'react'
 import MeetingBottomNav from '../../components/UI/MeetingBottomNav'
 import { useEffect } from 'react'
 import { useSocket } from '../../hooks/Socket'
 import { usePeer } from '../../hooks/Peer'
 import { useCallback } from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { cn } from '../../lib/utils'
+import { checkMeeting } from '../../services/apiService'
+import Loader from '../../components/UI/Loader'
+import MeetingNotFound from './MeetingNotFound'
+import { useSelector } from 'react-redux'
 
 const CurrentMeeting = () => {
+  const {user}=useSelector((state)=>state.user)
   const navigate = useNavigate()
   const { socket } = useSocket()
-  const { peer, createOffer, createAns, createRemoteAnswer, myStream, handleStopTrackEvent, remoteStreamRef, setTrackType, videoTrack, remoteAudioRef, screenMedia, remoteScreenMedia, audioTrack,screenTracks } = usePeer()
+  const [meetingFound, setMeetingFound] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const { peer, createOffer, createAns, createRemoteAnswer, myStream, handleStopTrackEvent, remoteStreamRef, setTrackType, videoTrack, remoteAudioRef, screenMedia, remoteScreenMedia, audioTrack, screenTracks } = usePeer()
   const [disableLocalVideo, setDisableLocalVideo] = useState(true);
   const [remoteEmailId, setRemoteEmailId] = useState(null);
   const [fromRemoteEmailId, setFromRemoteEmailId] = useState(null);
 
-console.log(remoteScreenMedia)
   const handleNewUserJoined = useCallback(async ({ emailId }) => {
     alert(`new user joined ${emailId}`)
     const offer = await createOffer()
@@ -80,6 +85,7 @@ console.log(remoteScreenMedia)
   }, [setTrackType])
 
   useEffect(() => {
+    socket.on('joined-room', handleJoinedRoom)
     socket.on('user-joined', handleNewUserJoined)
     socket.on('incoming-call', handleIncomingCall)
     socket.on('call-accepted', handleAcceptedCall)
@@ -88,6 +94,7 @@ console.log(remoteScreenMedia)
     socket.on('track-type', handleTrackType)
     socket.on('track-type-removed', handleStopTrackEvent)
     return () => {
+      socket.off('joined-room', handleJoinedRoom)
       socket.off('user-joined', handleNewUserJoined)
       socket.off('incoming-call', handleIncomingCall)
       socket.off('call-accepted', handleAcceptedCall)
@@ -107,7 +114,7 @@ console.log(remoteScreenMedia)
     if (peer) peer.close();
     socket.emit('leave-meeting');
     navigate('/profile')
-  }, [videoTrack, peer,socket])
+  }, [videoTrack, peer, socket])
 
   const handleEndMeeting = useCallback(async () => {
     console.log('hello end meeting')
@@ -118,82 +125,116 @@ console.log(remoteScreenMedia)
   const handleLocalVideo = (disable) => {
     setDisableLocalVideo(disable)
   }
+  //After joining
+  const handleJoinedRoom = useCallback((roomId) => {
+    alert(`room joined ${roomId}`)
+    navigate(`/profile/currentmeeting/${roomId}`)
+  }, [navigate])
 
+ 
+
+  //Checking Meeting that it exists or not
+  async function checkMeetingToJoin(roomCode) {
+    try {
+      setLoading(true)
+     await checkMeeting(roomCode)
+      socket.emit('join-room', { emailId: user.emailId, roomId: roomCode })
+      setLoading(false)
+      setMeetingFound(true)
+    } catch (error) {
+      setLoading(false)
+      setMeetingFound(false)
+    }
+  }
+  const { roomCode } = useParams()
+  useEffect(() => {
+    checkMeetingToJoin(roomCode)
+  }, [roomCode])
 
 
   return (
     <div className='h-full p-10 flex flex-col gap-10 max-sm:p-2'>
-      <div className={cn('grid grid-cols-2 items-center justify-center gap-10 h-full overflow-hidden max-sm:flex-col max-sm:gap-2', (screenMedia || remoteScreenMedia) && 'grid-cols-[1fr_2fr] ',
-        (remoteScreenMedia && screenMedia) && 'grid-cols-2')}>
-        {/* Local Stream Render */}
-        <div className="bg-gray-200 border-5 border-blue-800 rounded-4xl  h-full inset-shadow-sm overflow-hidden max-sm:w-full">
-          <video
-            ref={(video) => {
-              if (video && myStream && !disableLocalVideo) {
-                video.srcObject = myStream;
-              }
-            }}
-            autoPlay
-            muted
-            playsInline
-          />
 
-        </div>
+      {
+        loading ? <Loader /> :
+          meetingFound ?
+            <div className="h-full flex flex-col  gap-10 items-center justify-center">
+              <div className={cn('grid grid-cols-2 items-center justify-center gap-10 flex-grow w-full   overflow-hidden max-sm:flex-col max-sm:gap-2', (screenMedia || remoteScreenMedia) && 'grid-cols-[1fr_2fr] ',
+                (remoteScreenMedia && screenMedia) && 'grid-cols-2')}>
+                {/* Local Stream Render */}
+                <div className="bg-gray-200 border-5 border-blue-800 rounded-4xl  h-full inset-shadow-sm overflow-hidden max-sm:w-full">
+                  <video
+                    ref={(video) => {
+                      if (video && myStream && !disableLocalVideo) {
+                        video.srcObject = myStream;
+                      }
+                    }}
+                    autoPlay
+                    muted
+                    playsInline
+                  />
 
-        {
-          (screenMedia && <div className="bg-gray-200 border-5 border-blue-800 rounded-4xl h-full row-span-2 inset-shadow-sm  overflow-hidden max-sm:w-full">
-            <video
-              ref={(video) => {
-                if (video && screenMedia) {
-                  video.srcObject = screenMedia;
+                </div>
+
+                {
+                  (screenMedia && <div className="bg-gray-200 border-5 border-blue-800 rounded-4xl h-full row-span-2 inset-shadow-sm  overflow-hidden max-sm:w-full">
+                    <video
+                      ref={(video) => {
+                        if (video && screenMedia) {
+                          video.srcObject = screenMedia;
+                        }
+                      }}
+                      autoPlay
+                      muted
+                      playsInline
+                    />
+
+                  </div>)
+
                 }
-              }}
-              autoPlay
-              muted
-              playsInline
-            />
+                {
+                  (remoteScreenMedia && <div className="bg-gray-200 border-5 border-blue-800 row-span-2 rounded-4xl h-full inset-shadow-sm  overflow-hidden max-sm:w-full">
+                    <video
+                      ref={(video) => {
+                        if (video && remoteScreenMedia) {
+                          video.srcObject = remoteScreenMedia;
+                        }
+                      }}
+                      autoPlay
+                      muted
+                      playsInline
+                    />
 
-          </div>)
-
-        }
-        {
-          (remoteScreenMedia && <div className="bg-gray-200 border-5 border-blue-800 row-span-2 rounded-4xl h-full inset-shadow-sm  overflow-hidden max-sm:w-full">
-            <video
-              ref={(video) => {
-                if (video && remoteScreenMedia) {
-                  video.srcObject = remoteScreenMedia;
+                  </div>)
                 }
-              }}
-              autoPlay
-              muted
-              playsInline
-            />
-
-          </div>)
-        }
 
 
-        {/* RemoteStream Render */}
+                {/* RemoteStream Render */}
 
-        <div className="bg-gray-200 border-5 border-blue-800 rounded-4xl h-full inset-shadow-sm  overflow-hidden relative max-sm:w-full">
-          <audio ref={remoteAudioRef} autoPlay className='hidden'></audio>
-          <video
-            ref={remoteStreamRef}
-            autoPlay
-            playsInline
-            className='w-full h-full object-cover'
+                <div className="bg-gray-200 border-5 border-blue-800 rounded-4xl h-full inset-shadow-sm  overflow-hidden relative max-sm:w-full">
+                  <audio ref={remoteAudioRef} autoPlay className='hidden'></audio>
+                  <video
+                    ref={remoteStreamRef}
+                    autoPlay
+                    playsInline
+                    className='w-full h-full object-cover'
 
-          />
-          {
-            remoteEmailId ? <span className='block p-1 rounded-xl text-black bg-white/70 absolute left-4 top-4'>{remoteEmailId}</span> : <span className='block text-black  bg-white/70 absolute p-1 rounded-xl left-4 top-4'>{fromRemoteEmailId}</span>
-          }
-        </div>
+                  />
+                  {
+                    remoteEmailId ? <span className='block p-1 rounded-xl text-black bg-white/70 absolute left-4 top-4'>{remoteEmailId}</span> : <span className='block text-black  bg-white/70 absolute p-1 rounded-xl left-4 top-4'>{fromRemoteEmailId}</span>
+                  }
+                </div>
 
 
 
 
-      </div>
-      <MeetingBottomNav handleLocalVideo={handleLocalVideo} leaveMeeting={leaveMeeting} />
+              </div>
+              <MeetingBottomNav handleLocalVideo={handleLocalVideo} leaveMeeting={leaveMeeting} />
+
+            </div>
+            :
+            <MeetingNotFound />
+      }
     </div>
   )
 }

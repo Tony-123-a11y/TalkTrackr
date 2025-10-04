@@ -5,7 +5,7 @@ import { MdHome, MdHomeFilled } from 'react-icons/md'
 
 const Recording = () => {
   return (
-    <div>
+    <div className='text-white'>
       Recording page for profile
      <GoHome/>
      <GoHomeFill/>

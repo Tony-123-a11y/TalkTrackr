@@ -23,6 +23,7 @@ userRouter.post('/register',
     validationHandler
     , registerUser
 )
+
 userRouter.get('/fetchUser',requireAuth,getUser)
 userRouter.post('/googleLogin',googleAuth)
 userRouter.post('/login', loginUser)

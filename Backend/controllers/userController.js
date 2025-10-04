@@ -2,6 +2,8 @@ import {  googleClient } from '../index.js';
 import { User } from '../models/userModel.js';
 import bcrypt from 'bcryptjs'
 
+
+
 export const registerUser = async (req, res) => {
     try {
         const { emailId, password,fullName } = req.body
@@ -52,8 +54,8 @@ export const loginUser = async (req, res) => {
 }
 
 export const googleAuth =async(req,res)=>{
-    const {token}=req.body;
     try {
+        const {token}=req.body;
         const ticket= await googleClient.verifyIdToken({
             idToken:token,
             audience:process.env.GOOGLE_CLIENT_ID
@@ -86,9 +88,7 @@ export const getUser= async(req,res)=>{
         const {id}=req.session.user
         const user= await User.findById(id).select('-password')
                 res.status(201).json({ msg: 'user fetched  sucessfully!',user })
-
-        
-    } catch (error) {
+        } catch (error) {
         res.status(500).json({ msg: 'Internal Server Error', error: error.message })
         
     }

@@ -20,7 +20,6 @@ function GoogleLoginButton() {
   }, []);
 
   function handleCredentialResponse(response) {
-    console.log(response)
     // send token to backend
      apiClient.post('/users/googleLogin',{token:response.credential})
      .then((res)=> {
