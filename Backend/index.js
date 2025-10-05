@@ -21,6 +21,7 @@ const server= http.createServer(app)
 })
 runSocket(io)
 app.use(express.json())
+app.set("trust proxy", 1);
 app.use(cors({
   origin:['http://localhost:5173','https://talk-trackr-nc2n.vercel.app'],
   credentials:true
