@@ -30,15 +30,16 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     try {
         const { emailId, password } = req.body
-        const findUser = await User.findOne({ emailId }).select('password')
+        const findUser = await User.findOne({ emailId })
+        console.log(findUser)
         if (findUser) {
             const decryptPassword = await bcrypt.compare(password, findUser.password)
             if (decryptPassword) {
                 req.session.user = {
                     id: findUser._id,
                 }
-                const {password, ...userWithoutPassword}= findUser.toObject()
-                res.status(201).json({ msg: 'user logged in sucessfully!',user: userWithoutPassword })
+
+                res.status(201).json({ msg: 'user logged in sucessfully!',user: findUser })
             }
             else {
                 res.status(409).json({ msg: 'Invalid Credentials!' })

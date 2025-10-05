@@ -11,7 +11,7 @@ export const fetchUser= createAsyncThunk('fetch',async(_,{rejectWithValue})=>{
     
 })
 const initialState={
-    user:null,
+    user:null, 
     isAuthenticated:false,
     loading:true
 }

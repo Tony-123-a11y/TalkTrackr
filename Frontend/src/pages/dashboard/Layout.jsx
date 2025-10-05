@@ -7,7 +7,7 @@ import {useMediaQuery} from 'react-responsive';
 
 const Layout = () => {
    const isMobile= useMediaQuery({maxWidth:640})
-   console.log(isMobile)
+
   return (
     <div className='grid h-screen gap-12 max-xl:gap-6 max-lg:gap-4 max-md:gap-1  grid-cols-12 p-8  max-sm:p-0'>
     <ConcentricCircles/>  

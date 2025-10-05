@@ -13,7 +13,6 @@ import mongoose from "mongoose";
             return this.authProvider==='local'
          },
          minLength:8,
-         select:false
       },
       authProvider:{
        type:String,

@@ -5,8 +5,7 @@ export const SocketContext= createContext()
 
 export const SocketProvider=({children})=>{
    const socket= useMemo(()=>{
-   return io('https://talktrackr.onrender.com')
-   // return io('http://localhost:8000')
+   return io(import.meta.env.VITE_URL)
    },[]);
   
    return(

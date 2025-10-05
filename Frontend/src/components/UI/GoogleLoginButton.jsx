@@ -23,10 +23,7 @@ function GoogleLoginButton() {
     // send token to backend
      apiClient.post('/users/googleLogin',{token:response.credential})
      .then((res)=> {
-      dispatch(login({
-        emailId:res.data.user.email,
-        fullName:res.data.user.name,
-      }))
+      dispatch(login(res.data.user))
         navigate('/profile')})
      .catch((error)=>console.log(error))
   }

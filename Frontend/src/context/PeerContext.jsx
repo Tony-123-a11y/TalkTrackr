@@ -20,14 +20,14 @@ export const PeerProvider = ({ children }) => {
   const remoteAudioRef = useRef(null)
 
   async function getIceServers() {
+
     try {
-       const res= await fetch('https://talktrackr.onrender.com/ice-servers')
-      // const res = await fetch('http://localhost:8000/ice-servers')
+      const res = await fetch(import.meta.env.VITE_URL + '/ice-servers')
       const data = await res.json()
       console.log(data)
       setIceServerURLs(data.token.iceServers)
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
     }
   }
   useEffect(() => {
@@ -35,7 +35,6 @@ export const PeerProvider = ({ children }) => {
   }, [])
   const peer = useMemo(() => {
     if (iceServerURLs) {
-      console.log('helloURLs')
       return new RTCPeerConnection({
         iceServers: iceServerURLs,
       })
