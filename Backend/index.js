@@ -37,6 +37,7 @@ app.use(session({
   cookie: {
     httpOnly: true,              // prevents JS access to cookie
     secure: process.env.NODE_ENV === "production", // https only in prod
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000  // cookie expires in 1 day
   }
 }));
