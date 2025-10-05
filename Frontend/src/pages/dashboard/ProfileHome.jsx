@@ -52,8 +52,8 @@ try {
     
   }
   return (
-  <div className=" flex border border-white flex-col items-center justify-center  h-full  px-4">
-      <div className="text-center max-w-2xl max-sm:text-left max-sm:mb-15">
+  <div className=" flex  flex-col items-center justify-center  h-full  px-4">
+      <div className="text-center max-w-2xl max-sm:text-left max-sm:mb-17">
         {/* Heading */}
         <h1 className="text-5xl  font-semibold leading-13 text-gray-100 capitalize mb-4 max-sm:mb-6 max-md:text-4xl max-md:leading-10 max-sm:text-3xl max-sm:leading-8">
           Create a call or join an exisiting one 
