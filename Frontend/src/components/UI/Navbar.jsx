@@ -10,7 +10,7 @@ export default function Navbar({setAuthForm,setWhichForm}) {
       className="fixed top-4 left-1/2 -translate-x-1/2 w-full max-w-5xl flex items-center z-80 justify-between px-4 py-2 rounded-4xl bg-white/10 backdrop-blur-sm shadow-lg border border-white/20"
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, delay:1.3 }}
+      transition={{ duration: 0.6}}
     >
       {/* Logo */}
       <div className="text-xl font-bold text-white">

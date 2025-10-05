@@ -31,7 +31,7 @@ const navigate= useNavigate()
         </p> 
 
         {/* Buttons */}
-        <div className="flex items-center  justify-center gap-3">
+        <div className="flex items-center max-sm:justify-start justify-center gap-3">
         
           <Button
            onClick={()=>{
