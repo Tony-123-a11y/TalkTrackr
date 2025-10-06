@@ -1,8 +1,8 @@
-import { Mic, MicOff, Video, VideoOff, MonitorUp, Phone, MonitorOff } from "lucide-react"
+import { Mic, MicOff, Video, VideoOff, MonitorUp, Phone, MonitorOff, Share } from "lucide-react"
 import { useState } from "react"
 import { usePeer } from "../../hooks/Peer"
 
-export default function MeetingBottomNav({handleLocalVideo,leaveMeeting}) {
+export default function MeetingBottomNav({handleLocalVideo,leaveMeeting,setCopyCodeModal}) {
   const [isMuted, setIsMuted] = useState(true)
   const [isVideoOff, setIsVideoOff] = useState(true)
   const [screenOff, setScreenOff] = useState(true);
@@ -61,17 +61,20 @@ export default function MeetingBottomNav({handleLocalVideo,leaveMeeting}) {
           screenOff ?   <button onClick={()=>{
             setScreenOff(false)
             enableScreenShare()
-            }} className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer">
+            }} className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white max-sm:hidden  cursor-pointer">
           <MonitorOff className="w-6 h-6" />
         </button>
         :
         <button onClick={()=>{
           stopScreenShare()
           setScreenOff(true)
-          }} className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white  cursor-pointer">
+          }} className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 max-sm:hidden  text-white  cursor-pointer">
           <MonitorUp className="w-6 h-6" />
         </button>
 }
+<button onClick={()=>setCopyCodeModal(true)} className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white cursor-pointer">
+          <Share/>
+        </button>
 
         {/* Leave Call */}
         <button onClick={leaveMeeting} className="p-3 rounded-full bg-red-600 hover:bg-red-700 text-white cursor-pointer">

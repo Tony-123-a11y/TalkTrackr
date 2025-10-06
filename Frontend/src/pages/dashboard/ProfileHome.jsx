@@ -2,13 +2,11 @@ import { useState } from 'react'
 import Button from '@/components/UI/Button'
 import Input from '@/components/UI/Input'
 import { useSocket } from '../../hooks/Socket'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useCallback } from 'react'
-import {Loader, Loader2, Video} from 'lucide-react'
+import { Loader2, Video} from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { createNewMeeting } from '../../services/apiService'
-// import Loader from '../../components/UI/Loader'
+
 
 
 const ProfileHome = () => {

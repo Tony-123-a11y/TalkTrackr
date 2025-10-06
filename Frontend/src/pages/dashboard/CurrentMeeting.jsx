@@ -10,9 +10,11 @@ import { checkMeeting } from '../../services/apiService'
 import Loader from '../../components/UI/Loader'
 import MeetingNotFound from './MeetingNotFound'
 import { useSelector } from 'react-redux'
+import CopyRoomCodeModal from '../../components/UI/CopyRoomCodeModal'
 
 const CurrentMeeting = () => {
   const { user } = useSelector((state) => state.user)
+  const [copyCodeModal, setCopyCodeModal] = useState(true);
   const navigate = useNavigate()
   const { socket } = useSocket()
   const [meetingFound, setMeetingFound] = useState(true);
@@ -151,7 +153,7 @@ const CurrentMeeting = () => {
     checkMeetingToJoin(roomCode)
   }, [roomCode])
 
-
+console.log(roomCode)
   return (
     <div className='h-full p-10 flex flex-col gap-10 max-sm:gap-5 max-lg:p-5 max-lg:pb-10 max-sm:p-2 max-sm:pb-20'>
 
@@ -159,6 +161,7 @@ const CurrentMeeting = () => {
         loading ? <Loader /> :
           meetingFound ?
             <div className="h-full flex flex-col  gap-10 max-sm:gap-5 items-center justify-center">
+              <CopyRoomCodeModal isOpen={copyCodeModal} onClose={setCopyCodeModal} roomCode={roomCode}/>
               <div className={cn('grid grid-cols-2 items-center justify-center gap-10 flex-grow w-full max-lg:gap-6  overflow-hidden  max-sm:grid-cols-1 max-sm:gap-2', (screenMedia || remoteScreenMedia) && 'grid-cols-[1fr_2fr] ',
                 (remoteScreenMedia && screenMedia) && 'grid-cols-2')}>
                 {/* Local Stream Render */}
@@ -229,7 +232,7 @@ const CurrentMeeting = () => {
 
 
               </div>
-              <MeetingBottomNav handleLocalVideo={handleLocalVideo} leaveMeeting={leaveMeeting} />
+              <MeetingBottomNav setCopyCodeModal={setCopyCodeModal} handleLocalVideo={handleLocalVideo} leaveMeeting={leaveMeeting} />
 
             </div>
             :
