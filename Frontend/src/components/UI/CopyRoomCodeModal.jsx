@@ -1,4 +1,3 @@
-import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Copy } from "lucide-react";
 import {toast} from 'react-toastify'
@@ -50,7 +49,7 @@ const CopyRoomCodeModal = ({ isOpen, onClose, roomCode }) => {
             </div>
 
             <button
-              onClick={onClose}
+             onClick={()=>onClose(false)}
               className="w-full bg-primary text-white py-2 rounded-2xl hover:bg-primary/90 cursor-pointer transition"
             >
               Done

@@ -113,14 +113,13 @@ const CurrentMeeting = () => {
     videoTrack?.stop();
     audioTrack?.stop();
     screenTracks?.stop();
-    if (peer) peer.close();
+    
     socket.emit('leave-meeting');
     navigate('/profile')
   }, [videoTrack, peer, socket])
 
   const handleEndMeeting = useCallback(async () => {
     console.log('hello end meeting')
-    if (peer) peer.close();
     navigate('/profile')
   }, [])
 
