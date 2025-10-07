@@ -9,7 +9,7 @@ export default function MeetingBottomNav({handleLocalVideo,leaveMeeting,setCopyC
   const {sendStream,stopStream,enableAudio,stopAudio,enableScreenShare,stopScreenShare}= usePeer()
 
   return (
-    <div className="  w-full bg-gray-200 py-3 shadow-sm rounded-4xl">
+    <div className="  w-full bg-black  py-3 shadow-sm rounded-4xl">
       <div className="container flex items-center justify-center gap-6">
         
         {/* Mic Toggle */}

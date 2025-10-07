@@ -6,7 +6,7 @@ import { useCallback } from 'react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { cn } from '../../lib/utils'
-import { checkMeeting } from '../../services/apiService'
+import { checkMeeting, deleteMeeting } from '../../services/apiService'
 import Loader from '../../components/UI/Loader'
 import MeetingNotFound from './MeetingNotFound'
 import { useSelector } from 'react-redux'
@@ -113,7 +113,7 @@ const CurrentMeeting = () => {
     videoTrack?.stop();
     audioTrack?.stop();
     screenTracks?.stop();
-    
+    await deleteMeeting(roomCode)
     socket.emit('leave-meeting');
     navigate('/profile')
   }, [videoTrack, peer, socket])
@@ -152,7 +152,6 @@ const CurrentMeeting = () => {
     checkMeetingToJoin(roomCode)
   }, [roomCode])
 
-console.log(roomCode)
   return (
     <div className='h-full p-10 flex flex-col gap-10 max-sm:gap-5 max-lg:p-5 max-lg:pb-10 max-sm:p-2 max-sm:pb-20'>
 

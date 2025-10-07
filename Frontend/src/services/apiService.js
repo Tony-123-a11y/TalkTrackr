@@ -17,3 +17,7 @@ export const createNewMeeting= async(roomCode,host)=>{
 export const checkMeeting =async(roomCode)=>{
     return await apiClient.get(`/meeting/checkMeeting/${roomCode}`)
 }
+
+export const deleteMeeting =async(roomCode)=>{
+        return await apiClient.delete(`/meeting/deleteMeeting/${roomCode}`)
+}
