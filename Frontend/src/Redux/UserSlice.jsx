@@ -26,6 +26,9 @@ const userSlice= createSlice({
         logout:(state,action)=>{
             state.user=null
             state.isAuthenticated=false
+        },
+        loading:(state,action)=>{
+           state.loading=action.payload
         }
     },
     extraReducers:(builder)=>{
@@ -42,5 +45,5 @@ const userSlice= createSlice({
     }
 })
 
-export const {login,logout}=userSlice.actions;
+export const {login,logout,loading}=userSlice.actions;
 export default userSlice.reducer;

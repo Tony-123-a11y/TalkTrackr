@@ -105,7 +105,7 @@ const RegisterForm = ({ setWhichForm }) => {
 
       {/* Social Login Buttons */}
        <div className=" items-center justify-center gap-4 mb-5 border max-w-50 mx-auto rounded-4xl overflow-hidden">
-            <GoogleLoginButton/>
+            <GoogleLoginButton setLoading={setLoading}/>
 </div>
       {/* Sign Up Link */}
       <div className="text-center ">

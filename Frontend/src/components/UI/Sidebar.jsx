@@ -6,7 +6,7 @@ import { IoVideocam, IoVideocamOutline } from "react-icons/io5";
 import { IoMdLogOut } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../../services/apiService";
-import { logout } from "../../Redux/UserSlice";
+import { loading, logout } from "../../Redux/UserSlice";
 import { motion } from "framer-motion";
 
 const Sidebar = () => {
@@ -14,6 +14,7 @@ const Sidebar = () => {
   const location=useLocation()
   const onLogout = async() => {
     try {
+      dispatch(loading(true))
        const res= await logOutUser()
        dispatch(logout())
     } catch (error) {

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Button from '@/components/UI/Button'
 import Input from '@/components/UI/Input'
-import { useSocket } from '../../hooks/Socket'
 import { useNavigate } from 'react-router-dom'
 import { Loader2, Video} from 'lucide-react'
 import { useSelector } from 'react-redux'
@@ -14,8 +13,6 @@ const ProfileHome = () => {
   const [loading, setLoading] = useState(false);
   const [roomId, setRoomId] = useState(null);
   const navigate= useNavigate()
-const {socket}= useSocket()
-
 
 
 function generateRoomCode(length = 8) {
