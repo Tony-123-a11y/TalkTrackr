@@ -49,7 +49,6 @@ export const PeerProvider = ({ children }) => {
 
 
   const createAns = async (receivedOffer, localStream) => {
-    console.log('hello offer')
     await peer.setRemoteDescription(receivedOffer);
     const answer = await peer.createAnswer();
     await peer.setLocalDescription(answer);
@@ -59,7 +58,6 @@ export const PeerProvider = ({ children }) => {
 
   const createRemoteAnswer = async (ans) => {
     await peer.setRemoteDescription(ans)
-    console.log(peer.remoteDescription, peer.localDescription)
   }
 
 
@@ -106,7 +104,6 @@ export const PeerProvider = ({ children }) => {
       localStream.addTrack(audioTrack)
       peer.addTrack(audioTrack, localStream)
       socket.emit('track-added', { type: 'mic' })
-
     }
 
   }
@@ -118,11 +115,10 @@ export const PeerProvider = ({ children }) => {
       audioTrack.stop()
       localStream.removeTrack(audioTrack)
       const sender = peer.getSenders().find(s => s.track?.kind === 'audio')
-      if (sender) {
+      if (sender) { 
         peer.removeTrack(sender)
         setAudioTrack(null)
         socket.emit('track-removed', {stopTrackType:'mic'})
-
       }
 
     }
@@ -160,6 +156,7 @@ export const PeerProvider = ({ children }) => {
   }, [peer, screenTracks])
 
   const handleTrackEvent = useCallback((e) => {
+
     if (e.track.kind === "video" && trackType === "camera") {
       remoteStreamRef.current.srcObject = new MediaStream();
       remoteStreamRef.current.srcObject.addTrack(e.track);

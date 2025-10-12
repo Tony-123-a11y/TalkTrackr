@@ -82,13 +82,13 @@ const CurrentMeeting = () => {
 
 
   const handleTrackType = useCallback((type) => {
-
+    console.log(type)
     setTrackType(type)
   }, [setTrackType])
 
   useEffect(() => {
     socket.on('joined-room', handleJoinedRoom)
-    socket.on('user-joined', handleNewUserJoined)
+    socket.on('user-joined', handleNewUserJoined)  
     socket.on('incoming-call', handleIncomingCall)
     socket.on('call-accepted', handleAcceptedCall)
     socket.on('receive-candidate', handleReceivedCandidate)
@@ -113,6 +113,7 @@ const CurrentMeeting = () => {
     videoTrack?.stop();
     audioTrack?.stop();
     screenTracks?.stop();
+    setLoading(true)
     await deleteMeeting(roomCode)
     socket.emit('leave-meeting');
     navigate('/profile')
@@ -159,7 +160,7 @@ const CurrentMeeting = () => {
         loading ? <Loader /> :
           meetingFound ?
             <div className="h-full flex flex-col  gap-10 max-sm:gap-5 items-center justify-center">
-              <CopyRoomCodeModal isOpen={copyCodeModal} onClose={setCopyCodeModal} roomCode={roomCode}/>
+              <CopyRoomCodeModal isOpen={copyCodeModal} onClose={setCopyCodeModal} roomCode={roomCode} />
               <div className={cn('grid grid-cols-2 items-center justify-center gap-10 flex-grow w-full max-lg:gap-6  overflow-hidden  max-sm:grid-cols-1 max-sm:gap-2', (screenMedia || remoteScreenMedia) && 'grid-cols-[1fr_2fr] ',
                 (remoteScreenMedia && screenMedia) && 'grid-cols-2')}>
                 {/* Local Stream Render */}
