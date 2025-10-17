@@ -1,9 +1,10 @@
+import { assembly } from "./assembly.js"
 
 export function runSocket (io){
 //Socket configuration
 const emailToSocketMapping= new Map()
 const socketToEmailMapping= new Map()
-io.on('connection',(socket)=>{
+io.on('connection',async(socket)=>{
     console.log('hello connection')
     socket.on('join-room',(data)=>{
        const {roomId,emailId}=data
@@ -43,6 +44,7 @@ io.on('connection',(socket)=>{
     socket.on('track-removed',({stopTrackType})=>{
        socket.broadcast.emit('track-type-removed',stopTrackType)
     })
+    await assembly();
 })
 }
 

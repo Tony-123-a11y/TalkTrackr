@@ -31,8 +31,11 @@ export const loginUser = async (req, res) => {
     try {
         const { emailId, password } = req.body
         const findUser = await User.findOne({ emailId })
-        console.log(findUser)
+         
         if (findUser) {
+             if(findUser.authProvider==="google"){
+              return res.status(409).json({msg:"Account Registered with Google"})
+          }
             const decryptPassword = await bcrypt.compare(password, findUser.password)
             if (decryptPassword) {
                 req.session.user = {
@@ -77,7 +80,7 @@ export const googleAuth =async(req,res)=>{
         req.session.user={
          id: newUser._id  
         } 
-        res.status(201).json({msg:'User fetched  succesfully',user:payload})
+        res.status(201).json({msg:'User fetched  succesfully',user:newUser})
         
     } catch (error) {
         console.log(error.message)
