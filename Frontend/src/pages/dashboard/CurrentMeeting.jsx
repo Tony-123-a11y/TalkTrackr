@@ -153,13 +153,14 @@ const CurrentMeeting = () => {
     checkMeetingToJoin(roomCode)
   }, [roomCode])
 
+
   return (
     <div className='h-full p-10 flex flex-col gap-10 max-sm:gap-5 max-lg:p-5 max-lg:pb-10 max-sm:p-2 max-sm:pb-20'>
 
       {
         loading ? <Loader /> :
           meetingFound ?
-            <div className="h-full flex flex-col  gap-10 max-sm:gap-5 items-center justify-center">
+            <div className="h-full flex flex-col  gap-10 max-sm:gap-5 items-center justify-center relative">
               <CopyRoomCodeModal isOpen={copyCodeModal} onClose={setCopyCodeModal} roomCode={roomCode} />
               <div className={cn('grid grid-cols-2 items-center justify-center gap-10 flex-grow w-full max-lg:gap-6  overflow-hidden  max-sm:grid-cols-1 max-sm:gap-2', (screenMedia || remoteScreenMedia) && 'grid-cols-[1fr_2fr] ',
                 (remoteScreenMedia && screenMedia) && 'grid-cols-2')}>

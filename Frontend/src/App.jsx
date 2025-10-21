@@ -6,7 +6,7 @@ import ProtectedRoute from './pages/dashboard/ProtectedRoute'
 import ProfileHome from './pages/dashboard/ProfileHome'
 import Recording from './pages/dashboard/Recording'
 import CurrentMeeting from './pages/dashboard/CurrentMeeting'
-import Messages from './pages/dashboard/Messages'
+import ChatLayout from './pages/dashboard/ChatLayout'
 import {useDispatch, useSelector} from 'react-redux'
 import { fetchUser } from './Redux/UserSlice'
 
@@ -35,7 +35,7 @@ function App() {
         <Route index  element={<ProfileHome/>}/>
         <Route path='recording' element={<Recording/>}/>
         <Route path='currentmeeting/:roomCode' element={<CurrentMeeting/>}/>
-        <Route path='messages' element={<Messages/>}/>
+        <Route path='messages' element={<ChatLayout/>}/>
       </Route>
     </Routes>
     </BrowserRouter>
