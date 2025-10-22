@@ -11,6 +11,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import { OAuth2Client } from 'google-auth-library'
 import { meetingRouter } from './routers/meetingRouter.js'
+import { messageRouter } from './routers/messageRouter.js'
 dotenv.config()
 export const googleClient= new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const port=process.env.PORT 
@@ -48,6 +49,7 @@ app.get('/',(req,res)=>{
 
 app.use('/api/users',userRouter)
 app.use('/api/meeting',meetingRouter)
+app.use('/api/message',messageRouter)
 
 
 //twilio configuration

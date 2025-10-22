@@ -69,3 +69,15 @@
   background-image: url('src/assets/grainyEffect.jpg');
   background-size: 200px 200px;
 }
+
+.customScroll::-webkit-scrollbar{
+ width: 4px;
+
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+  background: crimson;
+  border-radius: 20px;
+  width: 2px;
+}
+

@@ -52,9 +52,9 @@ export default function ChatList({ selectedChat, onSelectChat }) {
   const filteredChats = mockChats.filter((chat) => chat.name.toLowerCase().includes(searchQuery.toLowerCase()))
 
   return (
-    <div className="w-full md:w-80 flex flex-col border-r border-white/10 bg-white/5 backdrop-blur-xl">
+    <div className="w-full md:w-80 flex flex-col border-r  border-white/10 bg-primary/10 backdrop-blur-xl">
       {/* Header */}
-      <div className="p-4 border-b border-white/10">
+      <div className="p-4 border-b border-white/10 ">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-2xl font-bold text-white">Messages</h1>
           <button className="p-2 hover:bg-white/10 rounded-full transition-colors duration-200">

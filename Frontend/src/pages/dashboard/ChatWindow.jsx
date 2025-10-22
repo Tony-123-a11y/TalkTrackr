@@ -57,9 +57,9 @@ export default function ChatWindow({ chat }) {
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="flex-1 flex flex-col ">
       {/* Chat Header */}
-      <div className="px-6 py-4 border-b border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-between">
+      <div className="px-6 py-4 border-b border-white/10 bg-primary/5 backdrop-blur-xl flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-crimson-400 to-crimson-600 flex items-center justify-center text-lg shadow-lg">
             {chat.avatar}
@@ -85,14 +85,14 @@ export default function ChatWindow({ chat }) {
       </div>
 
       {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div className="flex-1 overflow-y-auto customScroll p-6 space-y-4">
         {messages.map((message) => (
           <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
             <div
               className={`max-w-xs lg:max-w-md px-4 py-3 rounded-full backdrop-blur-md transition-all duration-200 ${
                 message.sender === "user"
                   ? "bg-gradient-to-r from-crimson-500 to-crimson-600 text-white shadow-lg shadow-crimson-500/20"
-                  : "bg-white/10 text-white border border-white/20"
+                  : "bg-primary/5 text-white border border-white/20"
               }`}
             >
               <p className="text-sm">{message.text}</p>

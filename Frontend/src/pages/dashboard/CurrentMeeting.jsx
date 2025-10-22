@@ -165,7 +165,7 @@ const CurrentMeeting = () => {
               <div className={cn('grid grid-cols-2 items-center justify-center gap-10 flex-grow w-full max-lg:gap-6  overflow-hidden  max-sm:grid-cols-1 max-sm:gap-2', (screenMedia || remoteScreenMedia) && 'grid-cols-[1fr_2fr] ',
                 (remoteScreenMedia && screenMedia) && 'grid-cols-2')}>
                 {/* Local Stream Render */}
-                <div className="bg-gray-800 border-3 border-primary rounded-4xl  h-full inset-shadow-sm overflow-hidden max-sm:w-full">
+                <div className="bg-primary/20 border-3 border-primary rounded-4xl  h-full inset-shadow-sm overflow-hidden max-sm:w-full">
                   <video
                     ref={(video) => {
                       if (video && myStream && !disableLocalVideo) {
@@ -180,7 +180,7 @@ const CurrentMeeting = () => {
                 </div>
 
                 {
-                  (screenMedia && <div className="bg-gray-800 border-3 border-primary  rounded-4xl h-full row-span-2 inset-shadow-sm  overflow-hidden max-sm:w-full">
+                  (screenMedia && <div className="bg-primary/5 border-3 border-primary  rounded-4xl h-full row-span-2 inset-shadow-sm  overflow-hidden max-sm:w-full">
                     <video
                       ref={(video) => {
                         if (video && screenMedia) {
@@ -196,7 +196,7 @@ const CurrentMeeting = () => {
 
                 }
                 {
-                  (remoteScreenMedia && <div className="bg-gray-800 border-3 border-primary  row-span-2 rounded-4xl h-full inset-shadow-sm  overflow-hidden max-sm:w-full">
+                  (remoteScreenMedia && <div className="bg-primary/20 border-3 border-primary  row-span-2 rounded-4xl h-full inset-shadow-sm  overflow-hidden max-sm:w-full">
                     <video
                       ref={(video) => {
                         if (video && remoteScreenMedia) {
@@ -214,7 +214,7 @@ const CurrentMeeting = () => {
 
                 {/* RemoteStream Render */}
 
-                <div className="bg-gray-800 border-3 border-primary  rounded-4xl h-full inset-shadow-sm  overflow-hidden relative max-sm:w-full">
+                <div className="bg-primary/20 border-3 border-primary  rounded-4xl h-full inset-shadow-sm  overflow-hidden relative max-sm:w-full">
                   <audio ref={remoteAudioRef} autoPlay className='hidden'></audio>
                   <video
                     ref={remoteStreamRef}
