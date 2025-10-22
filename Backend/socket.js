@@ -1,4 +1,4 @@
-import { assembly } from "./assembly.js"
+
 
 export function runSocket (io){
 //Socket configuration
@@ -44,7 +44,7 @@ io.on('connection',async(socket)=>{
     socket.on('track-removed',({stopTrackType})=>{
        socket.broadcast.emit('track-type-removed',stopTrackType)
     })
-    await assembly();
+
 })
 }
 
