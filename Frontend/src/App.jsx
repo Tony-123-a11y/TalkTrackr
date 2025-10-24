@@ -9,6 +9,8 @@ import CurrentMeeting from './pages/dashboard/CurrentMeeting'
 import ChatLayout from './pages/dashboard/ChatLayout'
 import {useDispatch, useSelector} from 'react-redux'
 import { fetchUser } from './Redux/UserSlice'
+import ChatWindow from './pages/dashboard/ChatWindow'
+import EmptyState from './pages/dashboard/EmptyState'
 
 
 
@@ -35,7 +37,10 @@ function App() {
         <Route index  element={<ProfileHome/>}/>
         <Route path='recording' element={<Recording/>}/>
         <Route path='currentmeeting/:roomCode' element={<CurrentMeeting/>}/>
-        <Route path='messages' element={<ChatLayout/>}/>
+        <Route path='messages' element={<ChatLayout/>}>
+        <Route index element={<EmptyState/>}/>
+        <Route path='currentchat/:chatId' element={<ChatWindow/>}/>'
+        </Route>
       </Route>
     </Routes>
     </BrowserRouter>

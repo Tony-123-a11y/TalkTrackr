@@ -43,15 +43,8 @@ export const sendMessage=async(req,res)=>{
 
 export const getAllMessages=async(req,res)=>{
   try {
-     const {id}=req.session.user
-    const {friendId}=req.params
-    const conversation= await Conversation.findOne({
-      members:{
-           $all:[
-            id,friendId
-           ]
-      }
-    }).populate('messages')
+      const {chatId}=req.params
+    const conversation= await Conversation.findById(chatId).populate('messages members')
  
     res.status(201).json({msg:'Messages Fetched Successfully',conversation})
   } catch (error) {
@@ -73,7 +66,9 @@ export const getChatList =async(req,res)=>{
       }).populate('members messages')
 
       const members=chatList.map((chat)=>{
+
          return {
+            chatId:chat._id,
             member:chat.members.find((member)=>member._id.toString()!==id),
             lastMessage:chat.messages[chat.messages.length-1]
          } 

@@ -1,44 +1,20 @@
-"use client"
 
 import { useState } from "react"
 import { Send, Phone, Video, MoreVertical, Paperclip, Smile } from "lucide-react"
+import { useParams } from "react-router-dom"
+import { getMessages } from "../../services/apiService"
+import {useQuery} from '@tanstack/react-query'
 
-const mockMessages = [
-  {
-    id: 1,
-    sender: "other",
-    text: "Hey! How are you doing?",
-    timestamp: "2:15 PM",
-  },
-  {
-    id: 2,
-    sender: "user",
-    text: "I'm doing great! Just finished the project.",
-    timestamp: "2:18 PM",
-  },
-  {
-    id: 3,
-    sender: "other",
-    text: "That sounds great! Let me check the details...",
-    timestamp: "2:30 PM",
-  },
-  {
-    id: 4,
-    sender: "other",
-    text: "Everything looks perfect! Ready to deploy?",
-    timestamp: "2:32 PM",
-  },
-  {
-    id: 5,
-    sender: "user",
-    text: "Yes, let's go live tomorrow morning",
-    timestamp: "2:35 PM",
-  },
-]
 
 export default function ChatWindow({ chat }) {
-  const [messages, setMessages] = useState(mockMessages)
+   const {chatId}= useParams()
+   console.log(chatId)
   const [inputValue, setInputValue] = useState("")
+const [messages, setMessages] = useState(null);
+  const{data,isLoading,isError}=useQuery({
+    queryKey:['messages'],
+    queryFn: async ()=> (await getMessages(chatId)).data
+  })
 
   const handleSendMessage = () => {
     if (inputValue.trim()) {
@@ -62,10 +38,10 @@ export default function ChatWindow({ chat }) {
       <div className="px-6 py-4 border-b border-white/10 bg-primary/5 backdrop-blur-xl flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-crimson-400 to-crimson-600 flex items-center justify-center text-lg shadow-lg">
-            {chat.avatar}
+            {/* {chat.avatar} */}
           </div>
           <div>
-            <h2 className="font-semibold text-white">{chat.name}</h2>
+            {/* <h2 className="font-semibold text-white">{chat.name}</h2> */}
             <p className="text-xs text-white/50">Active now</p>
           </div>
         </div>
@@ -86,8 +62,8 @@ export default function ChatWindow({ chat }) {
 
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto customScroll p-6 space-y-4">
-        {messages.map((message) => (
-          <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
+        {data?.conversation.messages.map((message) => (
+          <div key={message._id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
             <div
               className={`max-w-xs lg:max-w-md px-4 py-3 rounded-full backdrop-blur-md transition-all duration-200 ${
                 message.sender === "user"

@@ -6,6 +6,7 @@ import { getChatList } from "../../services/apiService"
 import {useQuery} from '@tanstack/react-query'
 import Loader from "./Loader"
 import { useSelector } from "react-redux"
+import {Link} from 'react-router-dom'
 
 
 export default function ChatList({ selectedChat, onSelectChat }) {
@@ -16,9 +17,7 @@ export default function ChatList({ selectedChat, onSelectChat }) {
   queryFn: async ()=> (await getChatList()).data
 })
 
-console.log(data?.members)
-
-
+console.log(data)
   return (
     <div className="w-full md:w-80 flex flex-col border-r  border-white/10 bg-primary/10 backdrop-blur-xl">
       {/* Header */}
@@ -54,17 +53,17 @@ console.log(data?.members)
       }
       <div className="flex-1 overflow-y-auto">
         {data?.members?.map((chat) => (
-          <button
+          <Link
             key={chat.member._id}
-            onClick={() => onSelectChat(chat)}
-            className={`w-full px-4 py-3 border-b border-white/5 transition-all duration-200 hover:bg-white/10 ${
-              selectedChat?.id === chat.member.id ? "bg-white/15 border-l-2 border-l-crimson-500" : ""
+            to={`/profile/messages/currentchat/${chat.chatId}`}
+            className={`w-full px-4 block py-3 border-b border-white/5 transition-all duration-200 hover:bg-white/10 ${
+              selectedChat?.id === chat.member._id ? "bg-white/15 border-l-2 border-l-crimson-500" : ""
             }`}
           >
             <div className="flex items-start gap-3">
               {/* Avatar */}
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-crimson-400 to-crimson-600 flex items-center justify-center text-xl flex-shrink-0 shadow-lg">
-                {chat.member.avatar}
+              <div className="w-12 h-12 bg-white rounded-full overflow-hidden bg-gradient-to-br from-crimson-400 to-crimson-600 flex items-center justify-center text-xl flex-shrink-0 shadow-lg">
+                <img src="sd" alt="" className="w-full h-full"/>
               </div>
 
               {/* Chat Info */}
@@ -73,7 +72,7 @@ console.log(data?.members)
                   <h3 className="font-semibold text-white truncate">{chat.member.fullName}</h3>
                   {/* <span className="text-xs text-white/50 flex-shrink-0">{chat.member.timestamp}</span> */}
                 </div>
-                <p className="text-sm text-white/60 truncate">{chat.lastMessage.text}</p>
+                <p className="text-sm text-white/60 text-left truncate">{chat.lastMessage.text}</p>
               </div>
 
               {/* Unread Badge */}
@@ -83,7 +82,7 @@ console.log(data?.members)
                 </div>
               )} */}
             </div>
-          </button>
+          </Link>
         ))}
       </div>
     </div>

@@ -25,3 +25,7 @@ export const deleteMeeting =async(roomCode)=>{
 export const getChatList =async()=>{
         return await apiClient.get('/message/getChatList')
 }
+
+export const getMessages= async(chatId)=>{
+        return await apiClient.get(`/message/getMessages/${chatId}`)
+}

@@ -4,6 +4,7 @@ import { useState } from "react"
 import ChatList from "@/components/UI/ChatList"
 import ChatWindow from "./ChatWindow"
 import EmptyState from "./EmptyState"
+import { Outlet } from "react-router-dom"
 
 export default function ChatLayout() {
   const [selectedChat, setSelectedChat] = useState(null)
@@ -13,8 +14,7 @@ export default function ChatLayout() {
       {/* Left Sidebar - Chat List */}
       <ChatList selectedChat={selectedChat} onSelectChat={setSelectedChat} />
 
-      {/* Right Side - Chat Window or Empty State */}
-      {selectedChat ? <ChatWindow chat={selectedChat} /> : <EmptyState />}
+      <Outlet/>
     </div>
   )
 }

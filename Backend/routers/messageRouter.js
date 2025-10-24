@@ -4,5 +4,5 @@ import { getAllMessages, getChatList, sendMessage } from '../controllers/message
 export const messageRouter= express.Router()
 
 messageRouter.post('/sendMessage/:friendId',sendMessage)
-messageRouter.get('/getMessages/:friendId',getAllMessages)
+messageRouter.get('/getMessages/:chatId',getAllMessages)
 messageRouter.get('/getChatList',getChatList)
