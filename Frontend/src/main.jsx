@@ -6,6 +6,7 @@ import { SocketProvider } from './context/SocketContext.jsx'
 import { PeerProvider } from './context/PeerContext.jsx'
 import {Bounce, ToastContainer} from 'react-toastify'
 import { store } from './Redux/Store.jsx'
+import {QueryClientProvider, QueryClient} from '@tanstack/react-query'
 createRoot(document.getElementById('root')).render(
     <Provider store={store}>
     <SocketProvider>
@@ -23,8 +24,9 @@ theme="light"
 transition={Bounce}
 />
     <PeerProvider>
+        <QueryClientProvider client={new QueryClient()}>
     <App />
-    
+    </QueryClientProvider>
     </PeerProvider>
      </SocketProvider>
      </Provider>
