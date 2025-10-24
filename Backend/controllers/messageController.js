@@ -60,16 +60,27 @@ export const getAllMessages=async(req,res)=>{
 }
 
 export const getChatList =async(req,res)=>{
+
    try {
-      const {id}=req.user
+      const {id}=req.session.user
+  
       const chatList= await Conversation.find({
          members:{
             $all:[
                id
             ]
          }
-      }).populate('members')
-      res.status(201).json({msg:'ChatList fetched',chatList})
+      }).populate('members messages')
+
+      const members=chatList.map((chat)=>{
+         return {
+            member:chat.members.find((member)=>member._id.toString()!==id),
+            lastMessage:chat.messages[chat.messages.length-1]
+         } 
+      })
+            
+      res.status(201).json({msg:'ChatList fetched',members})
+   
    } catch (error) {
     res.status(500).json({msg:"Internal Server Error",error:error.message})
       
