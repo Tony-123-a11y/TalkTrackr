@@ -10,14 +10,12 @@ import {Link} from 'react-router-dom'
 
 
 export default function ChatList({ selectedChat, onSelectChat }) {
-  const {user}=useSelector((state)=>state.user)
     const [searchQuery, setSearchQuery] = useState("")
   const {data,isLoading,isError}=useQuery({
   queryKey:['chats'],
   queryFn: async ()=> (await getChatList()).data
 })
 
-console.log(data)
   return (
     <div className="w-full md:w-80 flex flex-col border-r  border-white/10 bg-primary/10 backdrop-blur-xl">
       {/* Header */}
@@ -55,7 +53,7 @@ console.log(data)
         {data?.members?.map((chat) => (
           <Link
             key={chat.member._id}
-            to={`/profile/messages/currentchat/${chat.chatId}`}
+            to={`/profile/messages/currentchat/${chat.chatId}/${chat.member._id}/${chat.member.fullName}/${chat.member.profilePic}`}
             className={`w-full px-4 block py-3 border-b border-white/5 transition-all duration-200 hover:bg-white/10 ${
               selectedChat?.id === chat.member._id ? "bg-white/15 border-l-2 border-l-crimson-500" : ""
             }`}
@@ -72,7 +70,7 @@ console.log(data)
                   <h3 className="font-semibold text-white truncate">{chat.member.fullName}</h3>
                   {/* <span className="text-xs text-white/50 flex-shrink-0">{chat.member.timestamp}</span> */}
                 </div>
-                <p className="text-sm text-white/60 text-left truncate">{chat.lastMessage.text}</p>
+                <p className="text-sm text-white/60 text-left truncate">{chat.lastMessage?.text}</p>
               </div>
 
               {/* Unread Badge */}

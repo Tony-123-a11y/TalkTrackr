@@ -26,6 +26,9 @@ export const getChatList =async()=>{
         return await apiClient.get('/message/getChatList')
 }
 
+export const sendMessageToFriend=async (friendId,text)=>{
+        return await apiClient.post(`/message/sendMessage/${friendId}`,{text})
+}
 export const getMessages= async(chatId)=>{
         return await apiClient.get(`/message/getMessages/${chatId}`)
 }

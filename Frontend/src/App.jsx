@@ -39,7 +39,7 @@ function App() {
         <Route path='currentmeeting/:roomCode' element={<CurrentMeeting/>}/>
         <Route path='messages' element={<ChatLayout/>}>
         <Route index element={<EmptyState/>}/>
-        <Route path='currentchat/:chatId' element={<ChatWindow/>}/>'
+        <Route path='currentchat/:chatId/:friendId/:friendName/:friendProfilePic' element={<ChatWindow/>}/>'
         </Route>
       </Route>
     </Routes>

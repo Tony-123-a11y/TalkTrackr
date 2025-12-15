@@ -2,13 +2,16 @@ import { Conversation } from "../models/conversationModel.js"
 import { Message } from "../models/messageModel.js"
 
 export const sendMessage=async(req,res)=>{
+
      try {
        const {text}=req.body
       const {id}=req.session.user
       const {friendId}=req.params
+    
 
       const newMessage= await Message.create({
-        text
+        text,
+        userId:id
       })
       const messageId= newMessage._id;
       const findConversation= await Conversation.findOne({
@@ -33,7 +36,7 @@ export const sendMessage=async(req,res)=>{
                 messageId
              ]
       })
-      res.status.json({msg:"Conversation created and message sent successfully",newConversation})
+      res.status(201).json({msg:"Conversation created and message sent successfully",newConversation})
      } catch (error) {
        res.status(500).json({msg:"Internal Server Error",error:error.message})
 
