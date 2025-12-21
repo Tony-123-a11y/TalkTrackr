@@ -11,8 +11,9 @@ import {Link} from 'react-router-dom'
 
 export default function ChatList({ selectedChat, onSelectChat }) {
     const [searchQuery, setSearchQuery] = useState("")
+    const {user}=useSelector((state)=>state.user)
   const {data,isLoading,isError}=useQuery({
-  queryKey:['chats'],
+  queryKey:['chats',user._id],
   queryFn: async ()=> (await getChatList()).data
 })
 

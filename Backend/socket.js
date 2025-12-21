@@ -2,10 +2,11 @@
 
 export function runSocket (io){
 //Socket configuration
-const emailToSocketMappingForChats= new Map()
+const userIdToSocketMappingForChats= new Map()
 const emailToSocketMapping= new Map()
 const socketToEmailMapping= new Map()
 io.on('connection',async(socket)=>{
+   console.log('hello connection')
     socket.on('join-room',(data)=>{
        const {roomId,emailId}=data
        console.log(roomId,emailId)
@@ -46,7 +47,26 @@ io.on('connection',async(socket)=>{
     })
     //For chats
 
-    emailToSocketMappingForChats.set()
+
+    socket.on('newUserChat',({userId})=>{
+      console.log(userId)
+       userIdToSocketMappingForChats.set(userId,socket.id)
+    })
+
+
+    socket.on('goMessage',({newMesage,friendId,chatId})=>{
+      console.log(newMesage,friendId)
+       if(userIdToSocketMappingForChats.has(friendId)){
+         console.log('hello message')
+            const friendSocketId= userIdToSocketMappingForChats.get(friendId)
+            console.log(friendSocketId)
+             if(friendSocketId){
+               console.log('go message')
+               socket.to(friendSocketId).emit('getMessage',{newMesage,chatId})
+             }
+           }
+    })
+  
 
 })
 }

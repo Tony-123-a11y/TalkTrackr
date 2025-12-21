@@ -11,16 +11,20 @@ import {useDispatch, useSelector} from 'react-redux'
 import { fetchUser } from './Redux/UserSlice'
 import ChatWindow from './pages/dashboard/ChatWindow'
 import EmptyState from './pages/dashboard/EmptyState'
+import { useSocket } from './hooks/Socket'
 
 
 
 function App() {
   const {user}=useSelector((state)=>state.user)
-  console.log(user)
+  const {socket}= useSocket()
   const dispatch= useDispatch()
   useEffect(() => {
     if(!user){
      dispatch(fetchUser())
+    }
+    else{
+      socket.emit('newUserChat',{userId:user._id})
     }
   }, [user])
   
