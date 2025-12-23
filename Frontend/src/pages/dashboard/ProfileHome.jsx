@@ -3,7 +3,7 @@ import Button from '@/components/UI/Button'
 import Input from '@/components/UI/Input'
 import { useNavigate } from 'react-router-dom'
 import { Loader2, Video} from 'lucide-react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createNewMeeting, logOutUser } from '../../services/apiService'
 import { logout } from '../../Redux/UserSlice'
 import { IoMdLogOut } from 'react-icons/io'
@@ -15,7 +15,7 @@ const ProfileHome = () => {
   const [loading, setLoading] = useState(false);
   const [roomId, setRoomId] = useState(null);
   const navigate= useNavigate()
-
+  const dispatch=useDispatch()
 
 function generateRoomCode(length = 8) {
   // Create random bytes and convert to base36 (0-9a-z)

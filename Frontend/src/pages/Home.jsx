@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from "react";
-import { Video, Keyboard, Phone } from "lucide-react"; // icons
+import React, { useState } from "react";
+import { Video, Phone } from "lucide-react"; // icons
 import Button from "../components/UI/Button";
 import ConcentricCircles from "../components/ConcentricCircles";
 import Navbar from "../components/UI/Navbar";
@@ -22,7 +22,7 @@ const navigate= useNavigate()
       <div className="text-center max-sm:text-left max-w-3xl">
         {/* Heading */}
        <div className="relative z-50 "><h1 className="text-5xl  font-semibold leading-13 text-gray-200 capitalize mb-4 max-sm:mb-6 max-md:text-4xl max-md:leading-10 max-sm:text-3xl max-sm:leading-8">
-         Connect and collaborate from
+         Connect and talk from
           anywhere with <span className="text-primary">Talkies</span>
         </h1>
        
