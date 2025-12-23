@@ -4,7 +4,9 @@ import Input from '@/components/UI/Input'
 import { useNavigate } from 'react-router-dom'
 import { Loader2, Video} from 'lucide-react'
 import { useSelector } from 'react-redux'
-import { createNewMeeting } from '../../services/apiService'
+import { createNewMeeting, logOutUser } from '../../services/apiService'
+import { logout } from '../../Redux/UserSlice'
+import { IoMdLogOut } from 'react-icons/io'
 
 
 
@@ -46,8 +48,26 @@ try {
   navigate(`/profile/currentMeeting/${roomId}`)
     
   }
+
+  const onLogout = async() => {
+      try {
+        dispatch(loading(true))
+         const res= await logOutUser()
+         dispatch(logout())
+      } catch (error) {
+        console.log(error)
+      }
+        
+    }
   return (
-  <div className=" flex  flex-col items-center justify-center  h-full  px-4">
+  <div className=" flex  flex-col items-center relative justify-center  h-full  px-4">
+     <button
+      title="logout"
+        onClick={onLogout}
+        className="bg-gray-400 lg:hidden w-10 h-10 right-4 top-4  rounded-full text-gray-900 flex items-center justify-center hover:bg-transparent hover:backdrop-blur-sm cursor-pointer  hover:text-white  absolute  shadow-md transition-all "
+      >
+        <IoMdLogOut size={23}/>
+      </button>
       <div className="text-center max-w-2xl max-sm:text-left max-sm:mb-17">
         {/* Heading */}
         <h1 className="text-5xl  font-semibold leading-13 text-gray-100 capitalize mb-4 max-sm:mb-6 max-md:text-4xl max-md:leading-10 max-sm:text-3xl max-sm:leading-8">
