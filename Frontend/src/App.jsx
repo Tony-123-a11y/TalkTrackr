@@ -41,10 +41,10 @@ function App() {
         <Route index  element={<ProfileHome/>}/>
         <Route path='recording' element={<Recording/>}/>
         <Route path='currentmeeting/:roomCode' element={<CurrentMeeting/>}/>
-        <Route path='messages' element={<ChatLayout/>}>
+        {/* <Route path='messages' element={<ChatLayout/>}>
         <Route index element={<EmptyState/>}/>
         <Route path='currentchat/:chatId/:friendId/:friendName/:friendProfilePic' element={<ChatWindow/>}/>'
-        </Route>
+        </Route> */}
       </Route>
     </Routes>
     </BrowserRouter>

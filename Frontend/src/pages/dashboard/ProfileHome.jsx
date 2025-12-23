@@ -53,10 +53,10 @@ try {
         <h1 className="text-5xl  font-semibold leading-13 text-gray-100 capitalize mb-4 max-sm:mb-6 max-md:text-4xl max-md:leading-10 max-sm:text-3xl max-sm:leading-8">
           Create a call or join an exisiting one 
         </h1>
-        <p className="text-xl text-gray-200 mb-8 max-md:text-xl">
+        {/* <p className="text-xl text-gray-200 mb-8 max-md:text-xl">
           Connect, Record, and take notes 
           with <span className='text-primary font-bold'>Gen AI</span>
-        </p>
+        </p> */}
 
         {/* Buttons */}
         <div className="flex items-center justify-center gap-3 ">

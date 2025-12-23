@@ -21,14 +21,11 @@ const navigate= useNavigate()
     <div className="min-h-screen selection:bg-primary flex flex-col items-center justify-center  px-4 relative ">
       <div className="text-center max-sm:text-left max-w-3xl">
         {/* Heading */}
-       <div className="relative z-50 ">
-         <h1 className="text-5xl  font-semibold  text-gray-100 mb-4 leading-15 capitalize max-md:text-4xl max-md:leading-10 max-sm:text-3xl max-sm:leading-8">
-          Boost your productivity with AI powered calls and notes 
+       <div className="relative z-50 "><h1 className="text-5xl  font-semibold leading-13 text-gray-200 capitalize mb-4 max-sm:mb-6 max-md:text-4xl max-md:leading-10 max-sm:text-3xl max-sm:leading-8">
+         Connect and collaborate from
+          anywhere with <span className="text-primary">Talkies</span>
         </h1>
-        <p className="text-2xl text-gray-200 mb-8 max-md:text-xl">
-          Connect, collaborate, and celebrate from <br className="max-sm:hidden" />
-          anywhere with Google Meet
-        </p> 
+       
 
         {/* Buttons */}
         <div className="flex items-center max-sm:justify-start justify-center gap-3">

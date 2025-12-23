@@ -26,9 +26,9 @@ const Sidebar = () => {
 
   const items = [
     { id: "home", icon: <GoHome size={28} />, activeIcon: <GoHomeFill size={28} />, path: '/profile' },
-    { id: "mic", icon: <BiMicrophone size={28} />, activeIcon: <BiSolidMicrophone size={28} />, path: '/profile/recording' },
+    // { id: "mic", icon: <BiMicrophone size={28} />, activeIcon: <BiSolidMicrophone size={28} />, path: '/profile/recording' },
     { id: "video", icon: <IoVideocamOutline size={28} />, activeIcon: <IoVideocam size={28} />, path: `/profile/currentmeeting/${undefined}` },
-    { id: "message", icon: <AiOutlineMessage size={28} />, activeIcon: <AiFillMessage size={28} />, path: '/profile/messages' },
+    // { id: "message", icon: <AiOutlineMessage size={28} />, activeIcon: <AiFillMessage size={28} />, path: '/profile/messages' },
   ];
 
   return (

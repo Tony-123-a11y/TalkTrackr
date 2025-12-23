@@ -99,10 +99,10 @@ function handleEmoji(obj){
     <div className="flex-1 flex flex-col ">
       {/* Chat Header */}
       <div className="px-6 py-4 border-b border-white/10 bg-primary/5 backdrop-blur-xl flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-row-reverse">
           <h1 className="text-white text-lg font-semibold">{friendName}</h1>
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-crimson-400 to-crimson-600 flex items-center justify-center text-lg shadow-lg">
-            {friendProfilePic}
+          <div className="w-10 h-10 border bg-white border-white rounded-full bg-gradient-to-br from-crimson-400 to-crimson-600 flex items-center justify-center text-lg shadow-lg">
+            <img src={friendProfilePic} alt="" />
           </div>
          
         </div>
