@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createNewMeeting, logOutUser } from '../../services/apiService'
 import { logout } from '../../Redux/UserSlice'
 import { IoMdLogOut } from 'react-icons/io'
-
+import { loading } from '../../Redux/UserSlice'
 
 
 const ProfileHome = () => {
   const {user}= useSelector((state)=>state.user)
-  const [loading, setLoading] = useState(false);
+  const [roomLoading, setRoomLoading] = useState(false);
   const [roomId, setRoomId] = useState(null);
   const navigate= useNavigate()
   const dispatch=useDispatch()
@@ -31,14 +31,14 @@ try {
   if(!roomCode || !user){
       return alert('Failed to generate room code or fetching user') 
   }
-  setLoading(true)
+  setRoomLoading(true)
   await createNewMeeting(roomCode,user.emailId)
-  setLoading(false)
+  setRoomLoading(false)
   navigate(`/profile/currentMeeting/${roomCode}`)
 
 } catch (error) {
   console.log(error.message)
-  setLoading(false)
+  setRoomLoading(false)
 }
 }
   const handleSubmit= async()=>{
@@ -84,7 +84,7 @@ try {
           onClick={createMeeting}
           className={'py-5  shadow-xl relative  text-white'} size={'lg'}>
             {
-              loading ? <Loader2 className='animate-spin' size={25}/>:  <Video  size={25}/>
+              roomLoading ? <Loader2 className='animate-spin' size={25}/>:  <Video  size={25}/>
             }
            
             New Call

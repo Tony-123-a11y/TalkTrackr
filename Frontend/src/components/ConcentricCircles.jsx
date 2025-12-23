@@ -19,7 +19,7 @@ export default function ConcentricCircles({
       
         {ringsArr.map((r, i) => (
          
-          <motion.div
+          <div
           initial={{scale:0}}
           animate={{scale:1}}
           transition={{
@@ -43,7 +43,7 @@ export default function ConcentricCircles({
            style={{ width: 280 * (i+1), height: 250 *(i+1),zIndex:i,transform:`translate(-80%,-25%)`}} className="absolute innerCircleLeft blur-3xl   rounded-full "/>
           <div
            style={{ width: 280 * (i+1), height: 250 *(i+1),zIndex:i,transform:`translate(80%,-25%)`}} className="absolute innerCircleRight blur-3xl   rounded-full "/>
-            </motion.div>
+            </div>
          
         ))}
 
