@@ -29,7 +29,7 @@ const RegisterForm = ({ setWhichForm }) => {
     }
   }
   return (
-    <div className="bg-primary-background backdrop-blur-sm h-full shadow-xlp-8 max-sm:p-5 p-8 max-md:p-6 rounded-r-4xl max-sm:rounded-4xl w-2/5 max-md:w-1/2 max-sm:w-full ">
+    <div className="bg-primary-background backdrop-blur-sm h-full shadow-xl  max-sm:p-5 p-8 max-md:p-6 rounded-r-4xl max-sm:rounded-none w-2/5 max-md:w-1/2 max-sm:w-full ">
       {/* Header */}
       <div className="text-center mb-6">
         <img src={logo} alt="" className="h-25 w-25 object-contain  mx-auto scale-110 " />

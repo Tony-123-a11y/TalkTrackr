@@ -8,7 +8,7 @@ export default function AuthForm({setAuthForm,setWhichForm,whichForm}) {
 
 
   return (
-    <div className="h-screen  z-100  w-full fixed left-1/2  -translate-x-1/2 top-1/2 -translate-y-1/2 backdrop-blur-sm  flex items-center justify-center p-4">
+    <div className="h-screen  z-100  w-full fixed left-1/2  -translate-x-1/2 top-1/2 -translate-y-1/2 backdrop-blur-sm  flex items-center justify-center p-4 max-sm:p-0">
       <motion.div
       initial={{
         scale:0.8,
@@ -22,7 +22,7 @@ export default function AuthForm({setAuthForm,setWhichForm,whichForm}) {
             <IoClose />
         </button>
         
-        <div className="w-3/5 max-md:w-1/2 h-full max-sm:hidden relative  rounded-l-4xl overflow-hidden">
+        <div className="w-3/5 max-md:w-1/2 h-full max-sm:hidden relative  rounded-l-4xl  overflow-hidden">
         <div className="absolute left-0 top-0 h-full w-full  z-2 bg-gray-800/30 flex flex-col justify-center items-center text-center p-10  ">
 
   <h2 className="text-6xl font-semibold text-red-100 font-['inter'] leading-15 tracking-wide mb-10 max-md:text-3xl max-md:leading-10  max-md:tracking-normal">
@@ -30,7 +30,7 @@ export default function AuthForm({setAuthForm,setWhichForm,whichForm}) {
   </h2>
 
 
-  <div className="flex items-center  justify-center gap-6  w-full max-w-md max-md:flex-col">
+  {/* <div className="flex items-center  justify-center gap-6  w-full max-w-md max-md:flex-col">
   <div className="bg-white/40 backdrop-blur-md rounded-xl shadow p-4 flex-grow">
     <div className="flex items-center justify-center gap-4 "> 
       <h2 className="text-4xl font-bold text-gray-800">2</h2>
@@ -59,7 +59,7 @@ export default function AuthForm({setAuthForm,setWhichForm,whichForm}) {
       for taking notes
     </p>
   </div>
-</div>
+</div> */}
 
 </div>
 
